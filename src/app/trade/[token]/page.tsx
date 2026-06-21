@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, Construction, Radio, ShieldCheck } from "lucide-react";
 import { Header } from "@/components/Header";
+import { PrivyAuthButton } from "@/components/PrivyAuthButton";
 import { TokenTape } from "@/components/TokenTape";
 import { liveTrades, marketTokens } from "@/data/tokens";
 
@@ -121,9 +122,12 @@ export default async function TradePage({ params }: TradePageProps) {
                   <span className="font-black text-white/70">${selected.symbol}</span>
                 </div>
               </div>
-              <button className="mt-4 w-full rounded-full bg-chad-lime px-4 py-3 text-sm font-black text-chad-black">
-                Sign in with Apple / Google
-              </button>
+              <PrivyAuthButton
+                fullWidth
+                ctaLabel="Sign in to trade"
+                connectedLabel="Ready"
+                className="mt-4 border-chad-lime/25 bg-chad-lime px-4 py-3 text-chad-black hover:bg-chad-mint hover:text-chad-black"
+              />
             </div>
           </aside>
         </div>

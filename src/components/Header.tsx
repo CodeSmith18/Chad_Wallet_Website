@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Apple, ChevronRight, Fingerprint, Zap } from "lucide-react";
+import { ChevronRight, Zap } from "lucide-react";
+import { PrivyAuthButton } from "@/components/PrivyAuthButton";
 
 export function Header() {
   return (
@@ -33,11 +34,11 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button className="hidden items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-sm font-bold text-white/80 transition hover:border-white/30 hover:text-chad-white sm:flex">
-            <Apple className="h-4 w-4" />
-            <Fingerprint className="h-4 w-4" />
-            Privy
-          </button>
+          <PrivyAuthButton
+            className="hidden sm:inline-flex"
+            ctaLabel="Privy"
+            connectedLabel=""
+          />
           <Link
             href="/trade/bonk"
             data-magnetic="8"
@@ -51,7 +52,7 @@ export function Header() {
       <div className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-center text-xs font-bold text-white/55 sm:hidden">
         <span className="inline-flex items-center gap-1">
           <Zap className="h-3 w-3 text-chad-lime" />
-          Apple / Google sign-in ready for Privy keys
+          Google / email sign-in live through Privy
         </span>
       </div>
     </header>
