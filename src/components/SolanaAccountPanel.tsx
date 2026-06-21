@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
+  Copy,
   ExternalLink,
   Loader2,
   RefreshCw,
@@ -193,6 +194,7 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
   const [swapStatus, setSwapStatus] = useState<SwapStatus>("idle");
   const [swapError, setSwapError] = useState<string | null>(null);
   const [txResult, setTxResult] = useState<SendResponse | null>(null);
+  const [copiedAddress, setCopiedAddress] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -309,6 +311,14 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
     setSwapError(null);
     setTxResult(null);
     setSwapStatus("idle");
+  }
+
+  async function handleCopyAddress() {
+    if (!walletAddress) return;
+
+    await navigator.clipboard.writeText(walletAddress);
+    setCopiedAddress(true);
+    window.setTimeout(() => setCopiedAddress(false), 1800);
   }
 
   async function handleReviewSwap() {
@@ -453,9 +463,35 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
 
         {ready && authenticated && walletAddress ? (
           <>
-            <p className="mt-2 break-all text-sm font-black text-white">
-              {shortAddress(walletAddress)}
+            <p className="mt-2 text-xs font-black uppercase text-white/35">
+              Deposit SOL on Solana only
             </p>
+            <p className="mt-2 break-all rounded-md border border-white/10 bg-white/[0.035] p-3 text-xs font-black leading-5 text-white">
+              {walletAddress}
+            </p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={handleCopyAddress}
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-chad-lime/25 bg-chad-lime/10 px-3 py-2 text-xs font-black text-chad-lime transition hover:bg-chad-lime/15"
+              >
+                {copiedAddress ? (
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                ) : (
+                  <Copy className="h-3.5 w-3.5" />
+                )}
+                {copiedAddress ? "Copied" : "Copy address"}
+              </button>
+              <a
+                href={`https://solscan.io/account/${walletAddress}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-black text-white/70 transition hover:border-chad-cyan/30 hover:text-chad-cyan"
+              >
+                Solscan
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
             <div className="mt-3">
               <BalanceRow
                 label="SOL balance"
