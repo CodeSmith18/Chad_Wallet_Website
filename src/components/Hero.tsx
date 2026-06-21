@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -7,9 +6,8 @@ import {
   Radio,
   ScanSearch,
   ShieldCheck,
-  Zap
 } from "lucide-react";
-import { liveTrades, marketTokens } from "@/data/tokens";
+import { HeroScene } from "@/components/HeroScene";
 
 const appStoreUrl =
   process.env.NEXT_PUBLIC_APP_STORE_URL ??
@@ -138,102 +136,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div
-          data-reveal
-          data-delay="220ms"
-          className="premium-card rounded-lg border border-white/10 bg-white/[0.035] p-3 shadow-2xl"
-        >
-          <div className="flex items-center justify-between border-b border-white/10 px-2 pb-3">
-            <div>
-              <p className="text-xs font-black uppercase text-white/42">
-                ChadWallet live lobby
-              </p>
-              <p className="mt-1 text-sm font-black text-white">
-                Social signals into Solana trades
-              </p>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-chad-lime/25 bg-chad-lime/10 px-3 py-1.5 text-xs font-black text-chad-lime">
-              <span className="h-2 w-2 rounded-full bg-chad-lime animate-slow-pulse" />
-              Live
-            </div>
-          </div>
-
-          <div className="grid gap-3 pt-3 lg:grid-cols-[1.08fr_0.92fr]">
-            <div className="relative min-h-[290px] overflow-hidden rounded-lg border border-white/10 bg-chad-ink sm:min-h-[430px] lg:min-h-[520px]">
-              <div data-parallax="0.1" className="parallax-media absolute inset-0 scale-[1.03]">
-                <Image
-                  src="/assets/flow/buy-sell.png"
-                  alt="ChadWallet buy and sell flow"
-                  fill
-                  sizes="(min-width: 1280px) 520px, (min-width: 1024px) 55vw, 100vw"
-                  className="image-zoom object-cover object-center"
-                  priority
-                  loading="eager"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 sm:hidden">
-              {marketTokens.slice(0, 4).map((token) => (
-                <Link
-                  href={`/trade/${token.symbol.toLowerCase()}`}
-                  key={token.symbol}
-                  className="premium-card rounded-md border border-white/8 bg-chad-black/70 px-3 py-2"
-                >
-                  <span className="block text-sm font-black text-white">
-                    ${token.symbol}
-                  </span>
-                  <span className="text-xs font-black text-chad-lime">
-                    Chad {token.score}
-                  </span>
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden gap-3 sm:grid">
-              <div className="rounded-lg border border-white/10 bg-chad-black/70 p-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="text-xs font-black uppercase text-white/45">
-                    Chad score
-                  </span>
-                  <Zap className="h-4 w-4 text-chad-yellow" />
-                </div>
-                <div className="space-y-2">
-                  {marketTokens.slice(0, 4).map((token) => (
-                    <Link
-                      href={`/trade/${token.symbol.toLowerCase()}`}
-                      key={token.symbol}
-                      className="premium-card flex items-center justify-between rounded-md border border-white/8 bg-white/[0.04] px-3 py-3 transition hover:border-chad-lime/50 hover:bg-chad-lime hover:text-chad-black"
-                    >
-                      <span>
-                        <span className="block font-black">${token.symbol}</span>
-                        <span className="text-xs text-white/42">{token.activity}</span>
-                      </span>
-                      <span className="text-sm font-black">{token.score}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-chad-lime/25 bg-chad-black/70 p-4">
-                <div className="mb-3 flex items-center gap-2 text-xs font-black uppercase text-chad-lime">
-                  <Zap className="h-4 w-4" />
-                  Live wallet moves
-                </div>
-                <div className="space-y-2">
-                  {liveTrades.slice(0, 4).map((trade) => (
-                    <div
-                      key={trade}
-                      className="premium-card rounded-md border border-white/8 bg-white/[0.04] px-3 py-2 text-sm font-bold text-white/74"
-                    >
-                      {trade}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeroScene />
       </div>
     </section>
   );
