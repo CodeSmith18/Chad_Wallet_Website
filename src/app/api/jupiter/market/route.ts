@@ -1,88 +1,22 @@
 import { NextResponse } from "next/server";
-import { marketTokens, SOL_DECIMALS, SOL_MINT } from "@/data/tokens";
+import { SOL_DECIMALS, SOL_MINT } from "@/data/tokens";
+import {
+  fetchJupiterJson,
+  fromAtomicAmount,
+  getJupiterConfig,
+  getMarketToken,
+  toAtomicAmount,
+  type JupiterPriceResponse,
+  type JupiterQuoteResponse
+} from "@/lib/jupiter";
 
-const JUPITER_PRO_BASE_URL = "https://api.jup.ag";
-const JUPITER_LITE_BASE_URL = "https://lite-api.jup.ag";
 const DEFAULT_SOL_AMOUNT = 0.1;
 const MAX_SOL_AMOUNT = 5;
-
-type JupiterPriceResponse = Record<
-  string,
-  {
-    usdPrice?: number;
-    price?: number;
-    decimals?: number;
-    blockId?: number;
-    priceChange24h?: number;
-  }
->;
-
-type JupiterQuoteResponse = {
-  inputMint: string;
-  inAmount: string;
-  outputMint: string;
-  outAmount: string;
-  otherAmountThreshold?: string;
-  swapMode?: string;
-  slippageBps?: number;
-  priceImpactPct?: string;
-  routePlan?: Array<unknown>;
-  contextSlot?: number;
-  timeTaken?: number;
-};
-
-function getJupiterHeaders() {
-  const apiKey = process.env.JUPITER_API_KEY?.trim();
-  const headers: Record<string, string> = {
-    accept: "application/json"
-  };
-
-  if (apiKey) {
-    headers["x-api-key"] = apiKey;
-  }
-
-  return {
-    baseUrl: apiKey ? JUPITER_PRO_BASE_URL : JUPITER_LITE_BASE_URL,
-    headers
-  };
-}
-
-function toAtomicAmount(value: number, decimals: number) {
-  return Math.round(value * 10 ** decimals).toString();
-}
-
-function fromAtomicAmount(amount: string, decimals: number) {
-  return Number(amount) / 10 ** decimals;
-}
-
-async function fetchJupiterJson<T>(url: string, headers: HeadersInit) {
-  const response = await fetch(url, {
-    headers,
-    next: {
-      revalidate: 30
-    }
-  });
-
-  const text = await response.text();
-
-  if (!response.ok) {
-    return {
-      ok: false as const,
-      status: response.status,
-      error: text.slice(0, 280)
-    };
-  }
-
-  return {
-    ok: true as const,
-    data: JSON.parse(text) as T
-  };
-}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const symbol = (searchParams.get("symbol") ?? "BONK").toUpperCase();
-  const token = marketTokens.find((item) => item.symbol === symbol);
+  const token = getMarketToken(symbol);
 
   if (!token) {
     return NextResponse.json(
@@ -99,12 +33,17 @@ export async function GET(request: Request) {
       ? Math.min(requestedSol, MAX_SOL_AMOUNT)
       : DEFAULT_SOL_AMOUNT;
   const amount = toAtomicAmount(amountSol, SOL_DECIMALS);
-  const { baseUrl, headers } = getJupiterHeaders();
+  const { baseUrl, headers, tier } = getJupiterConfig();
 
   const priceUrl = `${baseUrl}/price/v3?ids=${encodeURIComponent(
     `${SOL_MINT},${token.mint}`
   )}`;
-  const priceResult = await fetchJupiterJson<JupiterPriceResponse>(priceUrl, headers);
+  const priceResult = await fetchJupiterJson<JupiterPriceResponse>(priceUrl, {
+    headers,
+    next: {
+      revalidate: 30
+    }
+  });
 
   if (!priceResult.ok) {
     return NextResponse.json(
@@ -126,7 +65,12 @@ export async function GET(request: Request) {
 
   const quoteResult = await fetchJupiterJson<JupiterQuoteResponse>(
     quoteUrl.toString(),
-    headers
+    {
+      headers,
+      next: {
+        revalidate: 30
+      }
+    }
   );
 
   if (!quoteResult.ok) {
@@ -157,6 +101,7 @@ export async function GET(request: Request) {
         decimals: token.decimals
       },
       source: "Jupiter",
+      tier,
       price: {
         usd: tokenPrice,
         change24h: priceResult.data[token.mint]?.priceChange24h ?? null,

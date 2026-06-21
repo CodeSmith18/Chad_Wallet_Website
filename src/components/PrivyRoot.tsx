@@ -1,6 +1,7 @@
 "use client";
 
 import { PrivyProvider, type PrivyClientConfig } from "@privy-io/react-auth";
+import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/kit";
 
 const privyAppId =
   process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "cmqnwug1o00vt0bl57p0crdnd";
@@ -12,6 +13,17 @@ const loginMethods: PrivyClientConfig["loginMethods"] =
     : ["google", "email"];
 
 const privyConfig: PrivyClientConfig = {
+  solana: {
+    rpcs: {
+      "solana:mainnet": {
+        rpc: createSolanaRpc("https://api.mainnet-beta.solana.com"),
+        rpcSubscriptions: createSolanaRpcSubscriptions(
+          "wss://api.mainnet-beta.solana.com"
+        ),
+        blockExplorerUrl: "https://solscan.io"
+      }
+    }
+  },
   appearance: {
     theme: "dark",
     accentColor: "#1CFF89",

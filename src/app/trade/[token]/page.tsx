@@ -67,8 +67,8 @@ export default async function TradePage({ params }: TradePageProps) {
                   ${selected.symbol} / SOL
                 </h1>
                 <p className="mt-2 text-white/55">
-                  Live Jupiter price and quote data are online. Swap signing is
-                  the next checkpoint.
+                  Live Jupiter routes are online. Review, sign, and broadcast
+                  through Privy plus Helius from the wallet station.
                 </p>
               </div>
               <div className="rounded-full border border-chad-lime/30 bg-chad-lime/10 px-4 py-2 text-sm font-black text-chad-lime">
