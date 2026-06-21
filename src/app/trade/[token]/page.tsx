@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowLeft, Construction, Radio, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Radio, ShieldCheck } from "lucide-react";
 import { Header } from "@/components/Header";
+import { JupiterMarketPanel } from "@/components/JupiterMarketPanel";
 import { PrivyAuthButton } from "@/components/PrivyAuthButton";
 import { TokenTape } from "@/components/TokenTape";
 import { liveTrades, marketTokens } from "@/data/tokens";
@@ -60,14 +61,14 @@ export default async function TradePage({ params }: TradePageProps) {
             <div className="flex flex-col gap-4 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-black uppercase text-chad-cyan">
-                  Phase 2 terminal shell
+                  Phase 2 terminal
                 </p>
                 <h1 className="mt-2 text-4xl font-black text-white">
                   ${selected.symbol} / SOL
                 </h1>
                 <p className="mt-2 text-white/55">
-                  Real BirdEye data, TradingView charts, holders, live trades, and
-                  Jupiter execution plug in here next.
+                  Live Jupiter price and quote data are online. Swap signing is
+                  the next checkpoint.
                 </p>
               </div>
               <div className="rounded-full border border-chad-lime/30 bg-chad-lime/10 px-4 py-2 text-sm font-black text-chad-lime">
@@ -76,17 +77,8 @@ export default async function TradePage({ params }: TradePageProps) {
               </div>
             </div>
 
-            <div className="mt-5 grid min-h-[360px] place-items-center rounded-lg border border-dashed border-white/15 bg-chad-black/60 p-8 text-center">
-              <div>
-                <Construction className="mx-auto h-12 w-12 text-chad-lime" />
-                <h2 className="mt-4 text-2xl font-black text-white">
-                  Trading engine checkpoint
-                </h2>
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/55">
-                  This route already opens from token banners. In Phase 2 it becomes
-                  the live Jupiter swap terminal with Privy wallet signing.
-                </p>
-              </div>
+            <div className="mt-5">
+              <JupiterMarketPanel token={selected} />
             </div>
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -118,7 +110,7 @@ export default async function TradePage({ params }: TradePageProps) {
               <div className="mt-5 rounded-md border border-white/10 bg-chad-black p-4">
                 <div className="text-xs uppercase text-white/42">You buy</div>
                 <div className="mt-2 flex items-center justify-between">
-                  <span className="text-2xl font-black text-white">$100</span>
+                  <span className="text-2xl font-black text-white">0.1 SOL</span>
                   <span className="font-black text-white/70">${selected.symbol}</span>
                 </div>
               </div>
