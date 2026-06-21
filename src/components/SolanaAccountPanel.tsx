@@ -74,6 +74,7 @@ type SolanaAccountPanelProps = {
 };
 
 type SwapStatus = "idle" | "reviewing" | "ready" | "signing" | "sending" | "success" | "error";
+const SWAP_FEE_BUFFER_SOL = 0.0035;
 
 function getSolanaWalletAddress(
   user: ReturnType<typeof usePrivy>["user"]
@@ -121,6 +122,27 @@ function getMatchingWallet(
   if (!address) return wallets[0];
 
   return wallets.find((wallet) => wallet.address === address) ?? wallets[0];
+}
+
+function getSimulationMessage(error: unknown) {
+  if (!error) return null;
+
+  const rawMessage =
+    typeof error === "string" ? error : JSON.stringify(error).slice(0, 220);
+  const normalized = rawMessage.toLowerCase();
+
+  if (
+    normalized.includes("attempt to debit") ||
+    normalized.includes("no record of a prior credit")
+  ) {
+    return "This wallet is not funded on-chain yet. Deposit SOL, refresh balances, then review the route again.";
+  }
+
+  if (normalized.includes("insufficient") || normalized.includes("custom program error: 0x1")) {
+    return "Not enough SOL for the swap amount plus network fees. Lower the amount or add SOL first.";
+  }
+
+  return `Jupiter simulation blocked this route: ${rawMessage}`;
 }
 
 function BalanceRow({ label, value }: { label: string; value: string }) {
@@ -259,11 +281,27 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
     swapStatus === "reviewing" || swapStatus === "signing" || swapStatus === "sending";
   const canReview =
     ready && authenticated && Boolean(walletAddress) && isAmountValid && !isSwapBusy;
+  const requiredSol = isAmountValid ? numericAmount + SWAP_FEE_BUFFER_SOL : null;
+  const hasInsufficientSol =
+    typeof account?.solBalance === "number" &&
+    requiredSol !== null &&
+    account.solBalance < requiredSol;
+  const fundingMessage =
+    hasInsufficientSol && requiredSol !== null
+      ? `Add about ${formatTokenAmount(requiredSol, 4)} SOL before sending. Current balance is ${formatTokenAmount(
+          account?.solBalance,
+          4
+        )} SOL.`
+      : null;
+  const simulationMessage = getSimulationMessage(swap?.transaction.simulationError);
+  const swapBlockerMessage = fundingMessage ?? simulationMessage;
   const canExecute =
-    swapStatus === "ready" && Boolean(swap) && walletsReady && wallets.length > 0 && !isSwapBusy;
-  const simulationMessage = swap?.transaction.simulationError
-    ? JSON.stringify(swap.transaction.simulationError).slice(0, 140)
-    : null;
+    swapStatus === "ready" &&
+    Boolean(swap) &&
+    walletsReady &&
+    wallets.length > 0 &&
+    !isSwapBusy &&
+    !swapBlockerMessage;
 
   function resetSwapTicket(nextAmount: string) {
     setAmountSol(nextAmount);
@@ -320,6 +358,11 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
   async function handleExecuteSwap() {
     if (!swap) {
       setSwapError("Review a route before signing.");
+      return;
+    }
+
+    if (swapBlockerMessage) {
+      setSwapError(swapBlockerMessage);
       return;
     }
 
@@ -518,10 +561,10 @@ export function SolanaAccountPanel({ token }: SolanaAccountPanelProps) {
           </div>
         </div>
 
-        {simulationMessage ? (
+        {swapBlockerMessage ? (
           <div className="mt-3 rounded-md border border-chad-red/35 bg-chad-red/10 p-3 text-xs font-bold text-chad-red">
             <AlertTriangle className="mr-1 inline h-3.5 w-3.5" />
-            Simulation warning: {simulationMessage}
+            {swapBlockerMessage}
           </div>
         ) : null}
 
