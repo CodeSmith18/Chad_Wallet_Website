@@ -28,6 +28,15 @@ export function formatTokenAmount(value?: number | null, maximumFractionDigits =
   }).format(value);
 }
 
+export function formatCompactNumber(value?: number | null, maximumFractionDigits = 2) {
+  if (typeof value !== "number" || Number.isNaN(value)) return "--";
+
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits,
+    notation: "compact"
+  }).format(value);
+}
+
 export function formatPercent(value?: number | null) {
   if (typeof value !== "number" || Number.isNaN(value)) return "--";
 

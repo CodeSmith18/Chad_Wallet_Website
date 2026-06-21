@@ -3,8 +3,9 @@ import { ArrowLeft, Radio } from "lucide-react";
 import { Header } from "@/components/Header";
 import { JupiterMarketPanel } from "@/components/JupiterMarketPanel";
 import { SolanaAccountPanel } from "@/components/SolanaAccountPanel";
+import { TokenLiveIntelPanel } from "@/components/TokenLiveIntelPanel";
 import { TokenTape } from "@/components/TokenTape";
-import { liveTrades, marketTokens } from "@/data/tokens";
+import { marketTokens } from "@/data/tokens";
 
 type TradePageProps = {
   params: Promise<{
@@ -81,24 +82,7 @@ export default async function TradePage({ params }: TradePageProps) {
               <JupiterMarketPanel token={selected} />
             </div>
 
-            <div className="mt-5 grid gap-4 md:grid-cols-2">
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                <h3 className="font-black text-white">Holders preview</h3>
-                {["Top wallet", "KOL cluster", "New buyer wave"].map((holder) => (
-                  <div key={holder} className="border-t border-white/8 py-3 text-sm text-white/65">
-                    {holder}
-                  </div>
-                ))}
-              </div>
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                <h3 className="font-black text-white">Live trades preview</h3>
-                {liveTrades.slice(0, 3).map((trade) => (
-                  <div key={trade} className="border-t border-white/8 py-3 text-sm text-white/65">
-                    {trade}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <TokenLiveIntelPanel token={selected} />
           </section>
 
           <aside className="rounded-lg border border-white/10 bg-white/[0.035] p-4">
