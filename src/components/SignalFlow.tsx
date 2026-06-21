@@ -26,7 +26,7 @@ export function SignalFlow() {
   return (
     <section id="signals" className="border-y border-white/10 bg-white/[0.025] py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
+        <div data-reveal className="max-w-3xl">
           <p className="text-sm font-black uppercase text-chad-lime">
             From signal to swap
           </p>
@@ -42,7 +42,9 @@ export function SignalFlow() {
             return (
               <article
                 key={step.title}
-                className="relative overflow-hidden rounded-lg border border-white/10 bg-chad-ink"
+                data-reveal
+                data-delay={`${index * 120}ms`}
+                className="premium-card relative overflow-hidden rounded-lg border border-white/10 bg-chad-ink"
               >
                 <div className="flex items-center justify-between border-b border-white/10 p-5">
                   <div className="flex items-center gap-3">
@@ -57,13 +59,13 @@ export function SignalFlow() {
                 </div>
                 <div className="grid min-h-[420px] grid-rows-[auto_1fr] gap-5 p-5">
                   <p className="text-sm leading-6 text-white/60">{step.body}</p>
-                  <div className="relative min-h-[300px] overflow-hidden rounded-md bg-chad-black">
+                  <div className="relative min-h-[260px] overflow-hidden rounded-md bg-chad-black lg:min-h-[300px]">
                     <Image
                       src={step.image}
                       alt={step.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, 100vw"
-                      className="object-cover object-top"
+                      className="image-zoom object-cover object-top"
                     />
                   </div>
                 </div>

@@ -40,7 +40,8 @@ export function Header() {
           </button>
           <Link
             href="/trade/bonk"
-            className="flex items-center gap-1 rounded-full bg-chad-lime px-4 py-2 text-sm font-black text-chad-black transition hover:bg-chad-mint"
+            data-magnetic="8"
+            className="magnetic flex items-center gap-1 rounded-full bg-chad-lime px-4 py-2 text-sm font-black text-chad-black transition hover:bg-chad-mint"
           >
             Trade
             <ChevronRight className="h-4 w-4" />

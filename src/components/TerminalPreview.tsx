@@ -8,7 +8,10 @@ export function TerminalPreview() {
   return (
     <section id="terminal" className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div
+          data-reveal
+          className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+        >
           <div className="max-w-3xl">
             <p className="text-sm font-black uppercase text-chad-cyan">
               Desktop terminal preview
@@ -19,14 +22,19 @@ export function TerminalPreview() {
           </div>
           <Link
             href="/trade/bonk"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-5 py-3 text-sm font-black text-chad-white transition hover:border-chad-lime/60 hover:bg-chad-lime hover:text-chad-black"
+            data-magnetic="8"
+            className="magnetic inline-flex w-fit items-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-5 py-3 text-sm font-black text-chad-white transition hover:border-chad-lime/60 hover:bg-chad-lime hover:text-chad-black"
           >
             Open trading route
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="terminal-grid mt-12 grid overflow-hidden rounded-lg border border-white/12 bg-chad-black shadow-2xl lg:grid-cols-[280px_1fr_320px]">
+        <div
+          data-reveal
+          data-delay="140ms"
+          className="terminal-grid premium-card mt-12 grid overflow-hidden rounded-lg border border-white/12 bg-chad-black shadow-2xl lg:grid-cols-[280px_1fr_320px]"
+        >
           <aside className="border-b border-white/10 bg-white/[0.025] p-4 lg:border-b-0 lg:border-r">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm font-black uppercase text-white/55">
@@ -42,7 +50,7 @@ export function TerminalPreview() {
                 <Link
                   href={`/trade/${token.symbol.toLowerCase()}`}
                   key={token.symbol}
-                  className="flex items-center justify-between rounded-md border border-white/8 bg-white/[0.04] p-3 transition hover:border-chad-lime/50 hover:bg-chad-lime hover:text-chad-black"
+                  className="premium-card flex items-center justify-between rounded-md border border-white/8 bg-white/[0.04] p-3 transition hover:border-chad-lime/50 hover:bg-chad-lime hover:text-chad-black"
                 >
                   <div>
                     <div className="font-black">${token.symbol}</div>
@@ -76,7 +84,7 @@ export function TerminalPreview() {
                   ["24h", "+18.4%"],
                   ["Chad score", "94"]
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-md border border-white/10 bg-white/[0.04] px-4 py-3">
+                  <div key={label} className="premium-card rounded-md border border-white/10 bg-white/[0.04] px-4 py-3">
                     <div className="text-xs uppercase text-white/42">{label}</div>
                     <div className="mt-1 font-black text-white">{value}</div>
                   </div>
@@ -84,7 +92,7 @@ export function TerminalPreview() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-lg border border-white/10 bg-white/[0.035] p-5">
+            <div className="premium-card mt-6 rounded-lg border border-white/10 bg-white/[0.035] p-5">
               <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-black uppercase text-white/55">
                   <CandlestickChart className="h-4 w-4 text-chad-cyan" />
@@ -106,7 +114,7 @@ export function TerminalPreview() {
             </div>
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
-              <div className="rounded-lg border border-white/10 bg-white/[0.035] p-4">
+              <div className="premium-card rounded-lg border border-white/10 bg-white/[0.035] p-4">
                 <h4 className="mb-3 font-black text-white">Top holders</h4>
                 {["7x2Q...9pK", "Jito whale", "KOL cluster", "Fresh wallet"].map((holder, index) => (
                   <div key={holder} className="flex items-center justify-between border-t border-white/8 py-3 text-sm">
@@ -115,7 +123,7 @@ export function TerminalPreview() {
                   </div>
                 ))}
               </div>
-              <div className="rounded-lg border border-white/10 bg-white/[0.035] p-4">
+              <div className="premium-card rounded-lg border border-white/10 bg-white/[0.035] p-4">
                 <h4 className="mb-3 font-black text-white">Live trades</h4>
                 {liveTrades.slice(0, 4).map((trade) => (
                   <div key={trade} className="border-t border-white/8 py-3 text-sm font-bold text-white/70">
@@ -127,16 +135,16 @@ export function TerminalPreview() {
           </main>
 
           <aside className="border-t border-white/10 bg-white/[0.025] p-4 lg:border-l lg:border-t-0">
-            <div className="rounded-lg border border-chad-lime/25 bg-chad-lime/8 p-4">
+            <div className="premium-card rounded-lg border border-chad-lime/25 bg-chad-lime/8 p-4">
               <div className="flex items-center gap-2 text-sm font-black uppercase text-chad-lime">
                 <CircleDollarSign className="h-4 w-4" />
                 Buy / sell
               </div>
               <div className="mt-5 grid grid-cols-2 gap-2">
-                <button className="rounded-full bg-chad-lime px-4 py-3 text-sm font-black text-chad-black">
+                <button data-magnetic="6" className="magnetic rounded-full bg-chad-lime px-4 py-3 text-sm font-black text-chad-black">
                   Buy
                 </button>
-                <button className="rounded-full border border-white/14 px-4 py-3 text-sm font-black text-white">
+                <button data-magnetic="6" className="magnetic rounded-full border border-white/14 px-4 py-3 text-sm font-black text-white">
                   Sell
                 </button>
               </div>
@@ -147,12 +155,12 @@ export function TerminalPreview() {
                   <span className="font-black text-white/70">SOL</span>
                 </div>
               </div>
-              <button className="mt-4 w-full rounded-full bg-white px-4 py-3 text-sm font-black text-chad-black">
+              <button data-magnetic="7" className="magnetic mt-4 w-full rounded-full bg-white px-4 py-3 text-sm font-black text-chad-black">
                 Sign in with Privy
               </button>
             </div>
 
-            <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.035] p-4">
+            <div className="premium-card mt-4 rounded-lg border border-white/10 bg-white/[0.035] p-4">
               <div className="mb-3 flex items-center gap-2 text-sm font-black uppercase text-white/55">
                 <Wallet className="h-4 w-4 text-chad-cyan" />
                 Position

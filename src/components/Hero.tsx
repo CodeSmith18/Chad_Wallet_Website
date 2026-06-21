@@ -43,26 +43,46 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:min-h-[760px] lg:grid-cols-[0.88fr_1.12fr] lg:px-8 lg:py-16">
         <div className="max-w-2xl">
-          <div className="mb-6 flex w-fit items-center gap-2 rounded-full border border-chad-lime/35 bg-chad-lime/10 px-4 py-2 text-sm font-black text-chad-lime">
+          <div
+            data-reveal
+            className="mb-6 flex w-fit items-center gap-2 rounded-full border border-chad-lime/35 bg-chad-lime/10 px-4 py-2 text-sm font-black text-chad-lime"
+          >
             <Flame className="h-4 w-4" />
             Solana meme coin command center
           </div>
 
-          <h1 className="text-5xl font-black leading-[0.95] text-chad-white sm:text-6xl lg:text-7xl">
+          <h1
+            data-reveal
+            data-delay="90ms"
+            className="text-5xl font-black leading-[0.95] text-chad-white sm:text-6xl lg:text-7xl"
+          >
             ChadWallet for Solana memes.
           </h1>
-          <p className="mt-6 text-2xl font-black leading-tight text-white/92 sm:text-4xl">
+          <p
+            data-reveal
+            data-delay="170ms"
+            className="mt-6 text-2xl font-black leading-tight text-white/92 sm:text-4xl"
+          >
             Follow the wallets. Catch the move. Trade before the crowd.
           </p>
-          <p className="mt-5 max-w-xl text-base leading-7 text-white/62 sm:text-lg">
+          <p
+            data-reveal
+            data-delay="250ms"
+            className="mt-5 max-w-xl text-base leading-7 text-white/62 sm:text-lg"
+          >
             A social trading lobby for live wallet moves, trending launches, token
             context, and fast Solana execution.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div
+            data-reveal
+            data-delay="330ms"
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          >
             <Link
               href="/trade/bonk"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-chad-lime px-6 py-4 text-sm font-black text-chad-black transition hover:bg-chad-mint"
+              data-magnetic="10"
+              className="magnetic inline-flex items-center justify-center gap-2 rounded-full bg-chad-lime px-6 py-4 text-sm font-black text-chad-black transition hover:bg-chad-mint"
             >
               Start trading
               <ArrowUpRight className="h-5 w-5" />
@@ -71,7 +91,8 @@ export function Hero() {
               href={appStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-6 py-4 text-sm font-black text-chad-white transition hover:border-white/30 hover:bg-white/[0.09]"
+              data-magnetic="7"
+              className="magnetic inline-flex items-center justify-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-6 py-4 text-sm font-black text-chad-white transition hover:border-white/30 hover:bg-white/[0.09]"
             >
               <Download className="h-5 w-5" />
               iPhone app
@@ -80,20 +101,25 @@ export function Hero() {
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-white/14 bg-white/[0.05] px-6 py-4 text-sm font-black text-chad-white transition hover:border-white/30 hover:bg-white/[0.09]"
+              data-magnetic="7"
+              className="magnetic inline-flex items-center justify-center rounded-full border border-white/14 bg-white/[0.05] px-6 py-4 text-sm font-black text-chad-white transition hover:border-white/30 hover:bg-white/[0.09]"
             >
               Android
             </a>
           </div>
 
-          <div className="mt-8 grid gap-2 sm:grid-cols-3">
+          <div
+            data-reveal
+            data-delay="410ms"
+            className="mt-8 grid gap-2 sm:grid-cols-3"
+          >
             {proofPoints.map((item) => {
               const Icon = item.icon;
 
               return (
                 <div
                   key={item.value}
-                  className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"
+                  className="premium-card flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"
                 >
                   <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.07] text-chad-lime">
                     <Icon className="h-4 w-4" />
@@ -112,7 +138,11 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3 shadow-2xl">
+        <div
+          data-reveal
+          data-delay="220ms"
+          className="premium-card rounded-lg border border-white/10 bg-white/[0.035] p-3 shadow-2xl"
+        >
           <div className="flex items-center justify-between border-b border-white/10 px-2 pb-3">
             <div>
               <p className="text-xs font-black uppercase text-white/42">
@@ -130,15 +160,17 @@ export function Hero() {
 
           <div className="grid gap-3 pt-3 lg:grid-cols-[1.08fr_0.92fr]">
             <div className="relative min-h-[290px] overflow-hidden rounded-lg border border-white/10 bg-chad-ink sm:min-h-[430px] lg:min-h-[520px]">
-              <Image
-                src="/assets/flow/buy-sell.png"
-                alt="ChadWallet buy and sell flow"
-                fill
-                sizes="(min-width: 1280px) 520px, (min-width: 1024px) 55vw, 100vw"
-                className="object-cover object-center"
-                priority
-                loading="eager"
-              />
+              <div data-parallax="0.1" className="parallax-media absolute inset-0 scale-[1.03]">
+                <Image
+                  src="/assets/flow/buy-sell.png"
+                  alt="ChadWallet buy and sell flow"
+                  fill
+                  sizes="(min-width: 1280px) 520px, (min-width: 1024px) 55vw, 100vw"
+                  className="image-zoom object-cover object-center"
+                  priority
+                  loading="eager"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:hidden">
@@ -146,7 +178,7 @@ export function Hero() {
                 <Link
                   href={`/trade/${token.symbol.toLowerCase()}`}
                   key={token.symbol}
-                  className="rounded-md border border-white/8 bg-chad-black/70 px-3 py-2"
+                  className="premium-card rounded-md border border-white/8 bg-chad-black/70 px-3 py-2"
                 >
                   <span className="block text-sm font-black text-white">
                     ${token.symbol}
@@ -171,7 +203,7 @@ export function Hero() {
                     <Link
                       href={`/trade/${token.symbol.toLowerCase()}`}
                       key={token.symbol}
-                      className="flex items-center justify-between rounded-md border border-white/8 bg-white/[0.04] px-3 py-3 transition hover:border-chad-lime/50 hover:bg-chad-lime hover:text-chad-black"
+                      className="premium-card flex items-center justify-between rounded-md border border-white/8 bg-white/[0.04] px-3 py-3 transition hover:border-chad-lime/50 hover:bg-chad-lime hover:text-chad-black"
                     >
                       <span>
                         <span className="block font-black">${token.symbol}</span>
@@ -192,7 +224,7 @@ export function Hero() {
                   {liveTrades.slice(0, 4).map((trade) => (
                     <div
                       key={trade}
-                      className="rounded-md border border-white/8 bg-white/[0.04] px-3 py-2 text-sm font-bold text-white/74"
+                      className="premium-card rounded-md border border-white/8 bg-white/[0.04] px-3 py-2 text-sm font-bold text-white/74"
                     >
                       {trade}
                     </div>

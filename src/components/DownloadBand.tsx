@@ -12,7 +12,7 @@ export function DownloadBand() {
   return (
     <section id="download" className="border-y border-white/10 bg-chad-white text-chad-black">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
-        <div className="flex flex-col justify-center">
+        <div data-reveal className="flex flex-col justify-center">
           <div className="mb-5 flex w-fit items-center gap-2 rounded-full bg-chad-black px-4 py-2 text-sm font-black text-chad-lime">
             <ShieldCheck className="h-4 w-4" />
             Mobile app already live
@@ -29,7 +29,8 @@ export function DownloadBand() {
               href={appStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-chad-black px-6 py-4 text-sm font-black text-white transition hover:bg-chad-ink"
+              data-magnetic="8"
+              className="magnetic inline-flex items-center justify-center gap-2 rounded-full bg-chad-black px-6 py-4 text-sm font-black text-white transition hover:bg-chad-ink"
             >
               <Apple className="h-5 w-5" />
               Download for iPhone
@@ -38,7 +39,8 @@ export function DownloadBand() {
               href={playStoreUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-black/15 px-6 py-4 text-sm font-black text-chad-black transition hover:border-black/35"
+              data-magnetic="8"
+              className="magnetic inline-flex items-center justify-center gap-2 rounded-full border border-black/15 px-6 py-4 text-sm font-black text-chad-black transition hover:border-black/35"
             >
               <Play className="h-5 w-5" />
               Get it on Android
@@ -46,14 +48,20 @@ export function DownloadBand() {
           </div>
         </div>
 
-        <div className="relative min-h-[500px] overflow-hidden rounded-lg bg-chad-black">
-          <Image
-            src="/assets/app-store/portfolio.png"
-            alt="ChadWallet portfolio"
-            fill
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            className="object-cover object-top"
-          />
+        <div
+          data-reveal
+          data-delay="160ms"
+          className="premium-card relative min-h-[500px] overflow-hidden rounded-lg bg-chad-black"
+        >
+          <div data-parallax="0.12" className="parallax-media absolute inset-0 scale-[1.04]">
+            <Image
+              src="/assets/app-store/portfolio.png"
+              alt="ChadWallet portfolio"
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="image-zoom object-cover object-top"
+            />
+          </div>
         </div>
       </div>
     </section>

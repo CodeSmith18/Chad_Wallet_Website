@@ -1,6 +1,7 @@
 import { DownloadBand } from "@/components/DownloadBand";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { MotionLayer } from "@/components/MotionLayer";
 import { ProductGallery } from "@/components/ProductGallery";
 import { SignalFlow } from "@/components/SignalFlow";
 import { TerminalPreview } from "@/components/TerminalPreview";
@@ -9,6 +10,7 @@ import { TokenTape } from "@/components/TokenTape";
 export default function Home() {
   return (
     <main className="min-h-screen bg-chad-black text-chad-white">
+      <MotionLayer />
       <TokenTape direction="left" tone="top" />
       <Header />
       <Hero />
