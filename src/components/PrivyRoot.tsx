@@ -4,7 +4,7 @@ import { PrivyProvider, type PrivyClientConfig } from "@privy-io/react-auth";
 
 const privyAppId =
   process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "cmqnwug1o00vt0bl57p0crdnd";
-const privyClientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID;
+const privyClientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID?.trim();
 
 const loginMethods: PrivyClientConfig["loginMethods"] =
   process.env.NEXT_PUBLIC_ENABLE_APPLE_LOGIN === "true"
@@ -33,7 +33,7 @@ export function PrivyRoot({ children }: { children: React.ReactNode }) {
   return (
     <PrivyProvider
       appId={privyAppId}
-      clientId={privyClientId || undefined}
+      {...(privyClientId ? { clientId: privyClientId } : {})}
       config={privyConfig}
     >
       {children}
