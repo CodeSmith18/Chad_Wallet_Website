@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft, Radio, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Radio } from "lucide-react";
 import { Header } from "@/components/Header";
 import { JupiterMarketPanel } from "@/components/JupiterMarketPanel";
-import { PrivyAuthButton } from "@/components/PrivyAuthButton";
+import { SolanaAccountPanel } from "@/components/SolanaAccountPanel";
 import { TokenTape } from "@/components/TokenTape";
 import { liveTrades, marketTokens } from "@/data/tokens";
 
@@ -102,25 +102,7 @@ export default async function TradePage({ params }: TradePageProps) {
           </section>
 
           <aside className="rounded-lg border border-white/10 bg-white/[0.035] p-4">
-            <div className="rounded-lg border border-chad-lime/25 bg-chad-lime/8 p-4">
-              <div className="flex items-center gap-2 text-sm font-black uppercase text-chad-lime">
-                <ShieldCheck className="h-4 w-4" />
-                Privy ready
-              </div>
-              <div className="mt-5 rounded-md border border-white/10 bg-chad-black p-4">
-                <div className="text-xs uppercase text-white/42">You buy</div>
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="text-2xl font-black text-white">0.1 SOL</span>
-                  <span className="font-black text-white/70">${selected.symbol}</span>
-                </div>
-              </div>
-              <PrivyAuthButton
-                fullWidth
-                ctaLabel="Sign in to trade"
-                connectedLabel="Ready"
-                className="mt-4 border-chad-lime/25 bg-chad-lime px-4 py-3 text-chad-black hover:bg-chad-mint hover:text-chad-black"
-              />
-            </div>
+            <SolanaAccountPanel token={selected} />
           </aside>
         </div>
       </section>
